@@ -6,12 +6,12 @@ class Merchant
                 :created_at,
                 :updated_at
 
-  def initialize(merchant_hash, parent=nil)
-    @id = merchant_hash[:id].to_i
-    @name = merchant_hash[:name]
+  def initialize(hash, parent=nil)
+    @id = hash[:id].to_i
+    @name = hash[:name]
     @parent = parent
-    @created_at = merchant_hash[:created_at]
-    @updated_at = merchant_hash[:updated_at]
+    @created_at = hash[:created_at]
+    @updated_at = hash[:updated_at]
   end
 
   def items

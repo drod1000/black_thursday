@@ -24,14 +24,14 @@ module StandardDeviation
   def above_standard_deviation(array, standard_deviations)
     cutoff = mean(array) + (standard_deviations * standard_deviation(array))
     array.find_all do |number|
-      number >= cutoff
+      number > cutoff
     end
   end
 
   def below_standard_deviation(array, standard_deviations)
     cutoff = mean(array) - (standard_deviations * standard_deviation(array))
     array.find_all do |number|
-      number <= cutoff
+      number < cutoff
     end
   end
 end

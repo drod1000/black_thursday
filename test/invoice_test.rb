@@ -7,21 +7,20 @@ require './lib/invoice_repository'
 require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
-  attr_reader   
-                :sales_engine,
+  attr_reader   :sales_engine,
                 :invoice,
                 :invoice_2,
                 :repository
 
   def setup
-    # @sales_engine = SalesEngine.from_csv({
-    #   :items => "./data/items.csv",
-    #   :merchants => "./data/merchants.csv",
-    #   :invoices => "./data/invoices.csv",
-    #   :invoice_items => "./data/invoice_items.csv",
-    #   :transactions => "./data/transactions.csv",
-    #   :customers => "./data/customers.csv"
-    # })
+    @sales_engine = SalesEngine.from_csv({
+      :items => "./fixture/items.csv",
+      :merchants => "./fixture/merchants.csv",
+      :invoices => "./fixture/invoices.csv",
+      :invoice_items => "./fixture/invoice_items.csv",
+      :transactions => "./fixture/transactions.csv",
+      :customers => "./fixture/customers.csv"
+    })
     @repository = InvoiceRepository.new('./fixture/invoices.csv')
 
     @invoice = Invoice.new({
@@ -84,7 +83,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_an_invoice_can_point_to_its_merchant
-    skip
     invoice = sales_engine.invoices.find_by_id(1)
     assert_instance_of Merchant, invoice.merchant
     assert_equal 101, invoice.merchant.id
@@ -93,14 +91,13 @@ class InvoiceTest < Minitest::Test
   def test_an_invoice_can_point_to_its_transactions
     skip
     invoice = sales_engine.invoices.find_by_id(1)
-    assert_equal "Need something here", invoice.transactions.length
+    assert_equal 3, invoice.transactions.length
   end
 
   def test_an_invoice_can_point_to_its_customer
-    skip
-    invoice = sales_engine.invoices.find_by_id(1)
+    invoice = sales_engine.invoices.find_by_id(4)
     assert_instance_of Customer, invoice.customer
-    assert_equal "Need something here", invoice.customer
+    assert_equal 4, invoice.customer.id
   end
 
 

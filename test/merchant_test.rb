@@ -9,7 +9,7 @@ class MerchantTest < Minitest::Test
                 :repository
 
   def setup
-    @repository = MerchantRepository.new('./fixture/merchant_test_file.csv')
+    @repository = MerchantRepository.new('./fixture/merchants.csv')
     @merchant = Merchant.new({
     :id => 5,
     :name => "Turing School"

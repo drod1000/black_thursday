@@ -1,0 +1,11 @@
+id,first_name,last_name,created_at,updated_at
+1,John,Smith,2011-05-05,2015-05-05
+2,Mary,Johnson,2011-05-06,2015-05-06
+3,Jane,Katz,2011-05-07,2015-05-07
+4,Edgar,Poe,2011-05-08,2015-05-08
+5,Eric,Downs,2011-05-09,2015-05-09
+6,Derek,Bogart,2011-05-10,2015-05-10
+7,Ethan,Jones,2011-05-01,2015-05-11
+8,Holly,Conway,2011-05-02,2015-05-12
+9,Joseph,Smith,2011-05-03,2015-05-13
+10,Jesus,Christ,2011-05-04,2015-05-14

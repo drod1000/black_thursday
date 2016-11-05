@@ -10,7 +10,7 @@ class SalesAnalystTest < Minitest::Test
   def setup
     sales_engine = SalesEngine.from_csv({
     :items => "./fixture/items.csv",
-    :merchants => "./fixture/merchant_test_file.csv",
+    :merchants => "./fixture/merchants.csv",
     :invoices => "./fixture/invoices.csv"})
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end

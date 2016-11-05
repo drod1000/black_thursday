@@ -15,14 +15,14 @@ class ItemTest < Minitest::Test
     @repository = ItemRepository.new('./fixture/items.csv')
 
     @item = Item.new({
-    :id => 1,
-    :name => "Pencil",
-    :description => "You can use it to write things",
-    :unit_price => "1099",
-    :created_at => "2015-01-01 11:11:37 UTC",
-    :updated_at => "2015-10-10 11:11:37 UTC",
-    :merchant_id => 100
-    }, repository)
+      :id => 1,
+      :name => "Pencil",
+      :description => "You can use it to write things",
+      :unit_price => "1099",
+      :created_at => "2015-01-01 11:11:37 UTC",
+      :updated_at => "2015-10-10 11:11:37 UTC",
+      :merchant_id => 100
+      }, repository)
 
     @item_2 = Item.new({
       :id => 2,
@@ -83,7 +83,7 @@ class ItemTest < Minitest::Test
   def test_an_item_can_point_to_its_merchant
     sales_engine = SalesEngine.from_csv({ 
     :items => "./fixture/items.csv", 
-    :merchants => "./fixture/merchant_test_file.csv" 
+    :merchants => "./fixture/merchants.csv" 
     })
     item = sales_engine.items.find_by_id(1)
     assert_instance_of Merchant, item.merchant

@@ -76,4 +76,12 @@ class TransactionTest < Minitest::Test
     assert_instance_of TransactionRepository, transaction.parent
   end
 
+  def test_that_a_transaction_can_point_to_its_invoice
+    skip
+    #Need SE in setup
+    transaction = sales_engine.transactions.find_by_id(1)
+    assert_instance_of Invoice, transaction.invoice_id
+    assert_equal "Need something here", transaction.invoice_id
+  end
+
 end

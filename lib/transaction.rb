@@ -21,4 +21,8 @@ class Transaction
     @parent = parent
   end
 
+  def invoice
+    parent.find_invoice(invoice_id)
+  end
+
 end

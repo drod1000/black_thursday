@@ -38,6 +38,15 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
+  def find_transactions(invoice_id)
+    array = []
+    array << transactions.find_by_id(invoice_id)
+  end
+
+  def find_invoice(invoice_id)
+    invoices.find_by_id(invoice_id)
+  end
+
   def find_items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
   end

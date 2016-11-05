@@ -3,16 +3,17 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item'
-#require './lib/invoice_item_repository'
+require './lib/invoice_item_repository'
 require './lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
   attr_reader   :invoice_item,
-                :invoice_item_2
-                #:repository
+                :invoice_item_2,
+                :repository
 
   def setup
-    #@repository = InvoiceItemRepository.new('./fixture/invoice_items.csv')
+    @repository = InvoiceItemRepository.new('./fixture/invoice_items.csv')
+    
     @invoice_item = InvoiceItem.new({
       :id => "1",
       :item_id => "1",
@@ -20,9 +21,10 @@ class InvoiceItemTest < Minitest::Test
       :quantity => "2",
       :unit_price => "1099",
       :created_at => "2015-01-01 11:11:37 UTC",
-      :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+      :updated_at => "2015-10-10 11:11:37 UTC"
+    }, repository)
 
+    
     @invoice_item_2 = InvoiceItem.new({
       :id => "2",
       :item_id => "2",
@@ -30,8 +32,8 @@ class InvoiceItemTest < Minitest::Test
       :quantity => "2",
       :unit_price => "2000",
       :created_at => "2015-01-01 11:11:37 UTC",
-      :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+      :updated_at => "2015-10-10 11:11:37 UTC"
+    }, repository)
   end
 
   def test_it_can_create_an_invoice_item
@@ -77,7 +79,6 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_that_an_invoice_item_knows_who_its_parent_is
-    skip
     assert_equal repository, invoice_item.parent
     assert_instance_of InvoiceItemRepository, invoice_item.parent
   end

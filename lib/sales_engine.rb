@@ -23,7 +23,7 @@ class SalesEngine
     @invoices = InvoiceRepository.new(paths[:invoices], self) if paths[:invoices]
     @invoice_items = InvoiceItemRepository.new(paths[:invoice_items], self) if paths[:invoice_items]
     @customers = CustomerRepository.new(paths[:customers], self) if paths[:customers]
-    @transactions = TransactionRepository.new(paths[:transactions], self) if paths[:customers]
+    @transactions = TransactionRepository.new(paths[:transactions], self) if paths[:transactions]
   end
 
   def self.from_csv(paths)

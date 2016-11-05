@@ -3,23 +3,23 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/customer'
-#require './lib/customer_repository'
+require './lib/customer_repository'
 require './lib/sales_engine'
 
 class CustomerTest < Minitest::Test
   attr_reader   :customer,
-                :customer_2
-                #:repository
+                :customer_2,
+                :repository
 
   def setup
-    #@repository = CustomerRepository.new('./fixture/customers.csv')
+    @repository = CustomerRepository.new('./fixture/customers.csv')
     @customer = Customer.new({
       :id => "1",
       :first_name => "Daniel",
       :last_name => "Rodriguez",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC"
-    })
+    }, repository)
 
     @customer_2 = Customer.new({
       :id => "2",
@@ -27,7 +27,7 @@ class CustomerTest < Minitest::Test
       :last_name => "Burton",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC"
-    })
+    }, repository)
   end
 
   def test_it_can_create_a_customer
@@ -61,7 +61,6 @@ class CustomerTest < Minitest::Test
   end
 
   def test_that_a_customer_knows_who_its_parent_is
-    skip
     assert_equal repository, customer.parent
     assert_instance_of CustomerRepository, customer.parent
   end

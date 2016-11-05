@@ -13,7 +13,6 @@ class ItemTest < Minitest::Test
 
   def setup
     @repository = ItemRepository.new('./fixture/items.csv')
-
     @item = Item.new({
       :id => 1,
       :name => "Pencil",
@@ -23,7 +22,6 @@ class ItemTest < Minitest::Test
       :updated_at => "2015-10-10 11:11:37 UTC",
       :merchant_id => 100
       }, repository)
-
     @item_2 = Item.new({
       :id => 2,
       :name => "Pen",

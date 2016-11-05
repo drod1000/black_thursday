@@ -9,9 +9,7 @@ class CustomerRepository
   def initialize(path, parent = nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @parent = parent
-    @customers = contents.map do |line|
-      Customer.new(line, self)
-    end
+    @customers = contents.map {|line| Customer.new(line, self)}
   end
 
   def all
@@ -19,9 +17,7 @@ class CustomerRepository
   end
 
   def find_by_id(id_number)
-    all.find do |customer|
-      customer.id == id_number
-    end
+    all.find {|customer| customer.id == id_number}
   end
 
   def find_all_by_first_name(first_name)
@@ -37,7 +33,7 @@ class CustomerRepository
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
 end

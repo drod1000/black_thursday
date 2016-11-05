@@ -19,25 +19,19 @@ class InvoiceItemRepository
   end
 
   def find_by_id(id_number)
-    invoice_items.find do |invoice_item|
-      invoice_item.id == id_number
-    end
+    all.find {|invoice_item| invoice_item.id == id_number}
   end
 
   def find_all_by_item_id(item_id)
-    invoice_items.find_all do |invoice_item|
-      invoice_item.item_id == item_id
-    end
+    all.find_all {|invoice_item| invoice_item.item_id == item_id}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    invoice_items.find_all do |invoice_item|
-      invoice_item.invoice_id == invoice_id
-    end
+    all.find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
 end

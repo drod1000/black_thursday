@@ -9,9 +9,7 @@ class TransactionRepository
   def initialize(path, parent = nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @parent = parent
-    @transactions = contents.map do |line|
-      Transaction.new(line, self)
-    end
+    @transactions = contents.map {|line| Transaction.new(line, self)}
   end
 
   def all
@@ -19,15 +17,11 @@ class TransactionRepository
   end
 
   def find_by_id(id_number)
-    all.find do |transaction|
-      transaction.id == id_number
-    end
+    all.find  {|transaction| transaction.id == id_number}
   end
 
   def find_all_by_invoice_id(invoice_id)
-    all.find_all do |transaction|
-      transaction.invoice_id == invoice_id
-    end
+    all.find_all {|transaction| transaction.invoice_id == invoice_id}
   end
 
   def find_all_by_credit_card_number(credit_card_number)
@@ -37,9 +31,7 @@ class TransactionRepository
   end
 
   def find_all_by_result(result)
-    all.find_all do |transaction|
-      transaction.result == result
-    end
+    all.find_all {|transaction| transaction.result == result}
   end
 
   def find_invoice(invoice_id)
@@ -47,7 +39,7 @@ class TransactionRepository
   end
 
   def inspect
-    "#<#{self.class} #{@invoices.size} rows>"
+    "#<#{self.class} #{all.size} rows>"
   end
 
 end

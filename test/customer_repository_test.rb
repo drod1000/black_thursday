@@ -30,8 +30,7 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_customers_that_match_first_name
-    #same first name on fixtures
-    assert_equal 1, repository.find_all_by_first_name("John").length
+    assert_equal 2, repository.find_all_by_first_name("John").length
     assert_equal 1, repository.find_all_by_first_name("Mary").length
     assert_equal [], repository.find_all_by_first_name("Delilah")
   end

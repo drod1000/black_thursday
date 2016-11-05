@@ -99,7 +99,7 @@ class InvoiceTest < Minitest::Test
   def test_an_invoice_can_point_to_its_customer
     skip
     invoice = sales_engine.invoices.find_by_id(1)
-    assert_instance_of Customer. invoice.customer
+    assert_instance_of Customer, invoice.customer
     assert_equal "Need something here", invoice.customer
   end
 

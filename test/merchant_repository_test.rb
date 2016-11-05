@@ -6,13 +6,13 @@ require './lib/sales_engine'
 require 'pry'
 
 class MerchantRepositoryTest < Minitest::Test
-  attr_reader   :sales_engine, 
+  attr_reader   :sales_engine,
                 :repository
 
   def setup
-    @sales_engine = SalesEngine.from_csv({ 
-    :items => "./fixture/items.csv", 
-    :merchants => "./fixture/merchant_test_file.csv" 
+    @sales_engine = SalesEngine.from_csv({
+    :items => "./fixture/items.csv",
+    :merchants => "./fixture/merchants.csv" 
     })
     @repository = sales_engine.merchants
   end

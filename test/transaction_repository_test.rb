@@ -30,16 +30,14 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_transactions_that_match_invoice_id
-    #Update fixture with same invoice ids
-    assert_equal 1, repository.find_all_by_invoice_id(1).length
-    assert_equal 1, repository.find_all_by_invoice_id(2).length
+    assert_equal 3, repository.find_all_by_invoice_id(1).length
+    assert_equal 2, repository.find_all_by_invoice_id(2).length
     assert_equal [], repository.find_all_by_invoice_id(16)
   end
 
   def test_it_can_return_all_transactions_that_match_credit_card_number
-    #Update fixture with same credit cards
-    assert 1, repository.find_all_by_credit_card_number(1234567891234567).length
-    assert 1, repository.find_all_by_credit_card_number(9842754957544822).length
+    assert 3, repository.find_all_by_credit_card_number(1234567891234567).length
+    assert 2, repository.find_all_by_credit_card_number(9876543210987654).length
     assert_equal [], repository.find_all_by_credit_card_number(1111111111111111)
   end
 

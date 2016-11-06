@@ -26,4 +26,8 @@ class InvoiceItem
     price.chars.insert(-3, ".").join
   end
 
+  def item
+    parent.find_item_by_invoice_item(item_id)
+  end
+
 end

@@ -11,7 +11,10 @@ class SalesAnalystTest < Minitest::Test
     sales_engine = SalesEngine.from_csv({
     :items => "./fixture/items.csv",
     :merchants => "./fixture/merchants.csv",
-    :invoices => "./fixture/invoices.csv"})
+    :invoices => "./fixture/invoices.csv",
+    :invoice_items => "./fixture/invoice_items.csv",
+    :transactions => "./fixture/transactions.csv",
+    :customers => "./fixture/customers.csv" })
     @sales_analyst = SalesAnalyst.new(sales_engine)
   end
 
@@ -116,7 +119,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_number_of_days
-    assert_equal [1,2,2,2,1,5,2], sales_analyst.invoices_per_day
+    assert_equal [1,2,2,1,1,6,2], sales_analyst.invoices_per_day
   end
 
   def test_it_can_calculate_average_invoices_per_day
@@ -127,4 +130,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal ["Friday"], sales_analyst.top_days_by_invoice_count
   end
 
+  def test_it_can_calculate_revenue_by_date
+    assert_equal 45, sales_analyst.total_revenue_by_date("2011-11-11")
+  end
 end

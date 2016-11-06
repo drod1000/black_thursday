@@ -161,4 +161,15 @@ class SalesAnalyst
     end
   end
 
+  def total_revenue_by_date(date)
+    array = sales_engine.invoices.all.find_all do |invoice|
+       invoice.created_at == Time.parse(date)
+    end
+    array.reduce(0) do |grand_total, invoice|
+      binding.pry
+      grand_total += invoice.total
+      grand_total
+    end
+  end
+
 end

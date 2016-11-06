@@ -39,8 +39,7 @@ class SalesEngine
   end
 
   def find_transactions(invoice_id)
-    array = []
-    array << transactions.find_by_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def find_invoice(invoice_id)

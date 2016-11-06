@@ -1,4 +1,5 @@
 require 'time'
+require 'pry'
 
 class Invoice
   attr_reader   :id,
@@ -33,5 +34,15 @@ class Invoice
 
   def items
     parent.find_items_by_invoice_id(id)
+  end
+
+  def is_paid_in_full?
+    if transactions.length > 0
+      transactions.all? do |transaction|
+        transaction.result == "success"
+      end
+    else
+      return false
+    end
   end
 end

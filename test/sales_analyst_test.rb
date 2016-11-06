@@ -141,4 +141,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_calculate_total_revenue_for_a_single_merchant
     assert_equal 210,sales_analyst.revenue_by_merchant(102)
   end
+
+  def test_it_can_return_top_merchants
+    assert_equal 6, sales_analyst.top_revenue_earners
+  end
 end

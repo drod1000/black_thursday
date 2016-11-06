@@ -7,12 +7,15 @@ require './lib/invoice_item_repository'
 require './lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
-  attr_reader   :invoice_item,
-                :invoice_item_2,
-                :repository
+  attr_reader   :sales_engine,
+                :invoice_item,
+                :invoice_item_2
 
   def setup
-    @repository = InvoiceItemRepository.new('./fixture/invoice_items.csv')
+    @sales_engine = SalesEngine.from_csv({
+      :invoice_items => './fixture/invoice_items.csv',
+      :items => './fixture/items.csv'
+    })
     
     @invoice_item = InvoiceItem.new({
       :id => "1",
@@ -22,7 +25,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price => "1099",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC"
-    }, repository)
+    }, sales_engine.invoice_items)
 
     
     @invoice_item_2 = InvoiceItem.new({
@@ -33,7 +36,7 @@ class InvoiceItemTest < Minitest::Test
       :unit_price => "2000",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC"
-    }, repository)
+    }, sales_engine.invoice_items)
   end
 
   def test_it_can_create_an_invoice_item
@@ -79,8 +82,13 @@ class InvoiceItemTest < Minitest::Test
   end
 
   def test_that_an_invoice_item_knows_who_its_parent_is
-    assert_equal repository, invoice_item.parent
     assert_instance_of InvoiceItemRepository, invoice_item.parent
+  end
+
+  def test_an_invoice_item_can_point_to_its_item
+    invoice_item = sales_engine.invoice_items.find_by_id(1)
+    assert_instance_of Item, invoice_item.item
+    assert_equal 1, invoice_item.item.id
   end
 
 end

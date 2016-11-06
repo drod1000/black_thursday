@@ -39,20 +39,42 @@ class SalesEngine
   end
 
   def find_transactions(invoice_id)
-    array = []
-    array << transactions.find_by_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def find_invoice(invoice_id)
     invoices.find_by_id(invoice_id)
   end
 
+  def find_invoice_items_by_invoice_id(invoice_id)
+    invoice_items.find_all_by_invoice_id(invoice_id)
+  end
+
   def find_items_by_merchant_id(merchant_id)
     items.find_all_by_merchant_id(merchant_id)
+  end
+
+  def find_item_by_invoice_item(item_id)
+    items.find_by_id(item_id)
   end
 
   def find_invoices_by_merchant_id(merchant_id)
     invoices.find_all_by_merchant_id(merchant_id)
   end
 
+  def find_customers_by_merchant_id(merchant_id)
+    invoices = find_invoices_by_merchant_id(merchant_id)
+    customers = invoices.map do |invoice|
+      invoice.customer
+    end
+    customers.uniq
+  end
+
+  def find_items_by_invoice_id(invoice_id)
+    invoice_items = find_invoice_items_by_invoice_id(invoice_id)
+    items = invoice_items.map do |invoice_item|
+      invoice_item.item
+    end
+    items.uniq
+  end
 end

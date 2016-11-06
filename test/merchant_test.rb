@@ -51,4 +51,14 @@ class MerchantTest < Minitest::Test
     assert_equal 2, merchant.invoices.length
   end
 
+  def test_a_merchant_can_point_to_its_customers
+    sales_engine = SalesEngine.from_csv({
+      :merchants => "./fixture/merchants.csv",
+      :invoices => "./fixture/invoices.csv",
+      :customers => "./fixture/customers.csv"
+    })
+    merchant = sales_engine.merchants.find_by_id(101)
+    assert_equal 2, merchant.customers.length
+  end
+
 end

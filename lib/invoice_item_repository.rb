@@ -30,6 +30,10 @@ class InvoiceItemRepository
     all.find_all {|invoice_item| invoice_item.invoice_id == invoice_id}
   end
 
+  def find_item_by_invoice_item(item_id)
+    parent.find_item_by_invoice_item(item_id)
+  end
+
   def inspect
     "#<#{self.class} #{all.size} rows>"
   end

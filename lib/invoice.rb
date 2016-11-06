@@ -36,6 +36,10 @@ class Invoice
     parent.find_items_by_invoice_id(id)
   end
 
+  def invoice_items
+    parent.find_invoice_items_by_invoice_id(id)
+  end
+
   def is_paid_in_full?
     if transactions.length > 0
       transactions.all? do |transaction|
@@ -43,6 +47,15 @@ class Invoice
       end
     else
       return false
+    end
+  end
+
+  def total
+    if is_paid_in_full?
+    invoice_items.reduce(0) do |sum, invoice_item|
+      sum += invoice_item.unit_price * invoice_item.quantity
+      sum
+    end
     end
   end
 end

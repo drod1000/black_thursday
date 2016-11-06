@@ -102,5 +102,15 @@ class InvoiceTest < Minitest::Test
     assert_equal 2, invoice.items.length
   end
 
+  def test_that_an_invoice_can_point_to_its_invoice_items
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert_equal 2, invoice.invoice_items.length
+  end
+
+  def test_that_an_invoice_can_return_its_total
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert_equal 15, invoice.total
+  end
+
 
 end

@@ -177,6 +177,13 @@ class SalesAnalyst
     end
   end
 
+  def revenue_by_merchant(merchant_id)
+    invoices = sales_engine.find_invoices_by_merchant_id(merchant_id)
+    invoices.reduce(0) do |total, invoice|
+      total += invoice.total
+    end
+  end
+
 
 
 end

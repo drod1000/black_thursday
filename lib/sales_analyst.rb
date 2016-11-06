@@ -171,4 +171,12 @@ class SalesAnalyst
     end
   end
 
+  def merchants_with_only_one_item
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.items.length == 1
+    end
+  end
+
+
+
 end

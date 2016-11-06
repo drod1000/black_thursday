@@ -133,4 +133,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_calculate_revenue_by_date
     assert_equal 45, sales_analyst.total_revenue_by_date(Time.parse("2011-11-11"))
   end
+
+  def test_it_can_find_merchants_with_one_item
+    assert_equal 4, sales_analyst.merchants_with_only_one_item.length
+  end
 end

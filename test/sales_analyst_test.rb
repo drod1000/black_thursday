@@ -137,4 +137,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_merchants_with_one_item
     assert_equal 4, sales_analyst.merchants_with_only_one_item.length
   end
+
+  def test_it_can_calculate_total_revenue_for_a_single_merchant
+    assert_equal 210,sales_analyst.revenue_by_merchant(102)
+  end
 end

@@ -131,6 +131,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_revenue_by_date
-    assert_equal 45, sales_analyst.total_revenue_by_date("2011-11-11")
+    assert_equal 45, sales_analyst.total_revenue_by_date(Time.parse("2011-11-11"))
   end
 end

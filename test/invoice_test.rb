@@ -9,8 +9,7 @@ require './lib/sales_engine'
 class InvoiceTest < Minitest::Test
   attr_reader   :sales_engine,
                 :invoice,
-                :invoice_2,
-                :repository
+                :invoice_2
 
   def setup
     @sales_engine = SalesEngine.from_csv({
@@ -21,7 +20,6 @@ class InvoiceTest < Minitest::Test
       :transactions => "./fixture/transactions.csv",
       :customers => "./fixture/customers.csv"
     })
-    @repository = InvoiceRepository.new('./fixture/invoices.csv')
 
     @invoice = Invoice.new({
       :id => "1",
@@ -30,7 +28,7 @@ class InvoiceTest < Minitest::Test
       :status => "pending",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    }, repository)
+    }, sales_engine.invoices)
 
     @invoice_2 = Invoice.new({
       :id => "2",
@@ -39,7 +37,7 @@ class InvoiceTest < Minitest::Test
       :status => "pending",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    }, repository)
+    }, sales_engine.invoices)
   end
 
   def test_it_can_create_an_invoice
@@ -78,7 +76,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_that_an_invoice_knows_who_its_parent_is
-    assert_equal repository, invoice.parent
     assert_instance_of InvoiceRepository, invoice.parent
   end
 
@@ -98,6 +95,11 @@ class InvoiceTest < Minitest::Test
     invoice = sales_engine.invoices.find_by_id(4)
     assert_instance_of Customer, invoice.customer
     assert_equal 4, invoice.customer.id
+  end
+
+  def test_an_invoice_can_point_to_its_items
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert_equal 2, invoice.items.length
   end
 
 

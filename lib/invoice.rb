@@ -30,4 +30,8 @@ class Invoice
   def transactions
     parent.find_transactions(id)
   end
+
+  def items
+    parent.find_items_by_invoice_id(id)
+  end
 end

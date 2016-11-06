@@ -185,6 +185,15 @@ class SalesAnalyst
     end
   end
 
+  def top_revenue_earners(number=20)
+    unordered_revenue = sales_engine.merchants.all.each_with_object({}) do |merchant, hash|
+      hash[merchant] = self.revenue_by_merchant(merchant.id)
+    end
+    ordered_revenue = unordered_revenue.sort_by { |key, value| value}
+    final_revenue = ordered_revenue.reverse.map {|row| row[0]}
+    final_revenue[0..number-1]
+  end
+
 
 
 end

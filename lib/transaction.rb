@@ -10,7 +10,7 @@ class Transaction
                 :updated_at,
                 :parent
 
-  def initialize(hash, parent=nil)
+  def initialize(hash, parent = nil)
     @id = hash[:id].to_i
     @invoice_id = hash[:invoice_id].to_i
     @credit_card_number = hash[:credit_card_number].to_i

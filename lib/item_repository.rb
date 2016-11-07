@@ -9,9 +9,7 @@ class ItemRepository
   def initialize(path, parent = nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @parent = parent
-    @items = contents.map do |line|
-      Item.new(line, self)
-    end
+    @items = contents.map {|line| Item.new(line, self)}
   end
 
   def all

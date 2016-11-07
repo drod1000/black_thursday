@@ -1,5 +1,4 @@
 require 'time'
-require 'pry'
 
 class Invoice
   attr_reader   :id,
@@ -10,7 +9,7 @@ class Invoice
                 :updated_at,
                 :parent
 
-  def initialize(invoice_hash, parent=nil)
+  def initialize(invoice_hash, parent = nil)
     @id = invoice_hash[:id].to_i
     @customer_id = invoice_hash[:customer_id].to_i
     @merchant_id = invoice_hash[:merchant_id].to_i
@@ -29,7 +28,7 @@ class Invoice
   end
 
   def transactions
-    parent.find_transactions(id)
+    parent.find_transactions_by_invoice_id(id)
   end
 
   def items
@@ -52,10 +51,11 @@ class Invoice
 
   def total
     if is_paid_in_full?
-    invoice_items.reduce(0) do |sum, invoice_item|
-      sum += invoice_item.unit_price * invoice_item.quantity
-      sum
-    end
+      invoice_items.reduce(0) do |sum, invoice_item|
+        sum += invoice_item.unit_price * invoice_item.quantity
+        sum
+      end
     end
   end
+
 end

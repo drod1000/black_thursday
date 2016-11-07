@@ -8,7 +8,7 @@ class Merchant
                 :created_at,
                 :updated_at
 
-  def initialize(hash, parent=nil)
+  def initialize(hash, parent = nil)
     @id = hash[:id].to_i
     @name = hash[:name]
     @parent = parent

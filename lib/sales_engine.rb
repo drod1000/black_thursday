@@ -18,12 +18,12 @@ class SalesEngine
                 :transactions
 
   def initialize(paths)
-    @items = ItemRepository.new(paths[:items], self) if paths[:items]
-    @merchants = MerchantRepository.new(paths[:merchants], self) if paths[:merchants]
-    @invoices = InvoiceRepository.new(paths[:invoices], self) if paths[:invoices]
-    @invoice_items = InvoiceItemRepository.new(paths[:invoice_items], self) if paths[:invoice_items]
-    @customers = CustomerRepository.new(paths[:customers], self) if paths[:customers]
-    @transactions = TransactionRepository.new(paths[:transactions], self) if paths[:transactions]
+    @items = ItemRepository.new(paths[:items], self)
+    @merchants = MerchantRepository.new(paths[:merchants], self)
+    @invoices = InvoiceRepository.new(paths[:invoices], self)
+    @invoice_items = InvoiceItemRepository.new(paths[:invoice_items], self)
+    @customers = CustomerRepository.new(paths[:customers], self)
+    @transactions = TransactionRepository.new(paths[:transactions], self)
   end
 
   def self.from_csv(paths)

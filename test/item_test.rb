@@ -9,10 +9,18 @@ require './lib/sales_engine'
 class ItemTest < Minitest::Test
   attr_reader   :item,
                 :item_2,
-                :repository
+                :repository,
+                :sales_engine
 
   def setup
-    @repository = ItemRepository.new('./fixture/items.csv')
+    @sales_engine = SalesEngine.from_csv({
+      :items => "./fixture/items.csv",
+      :merchants => "./fixture/merchants.csv",
+      :invoices => "./fixture/invoices.csv",
+      :invoice_items => "./fixture/invoice_items.csv",
+      :customers => "./fixture/customers.csv",
+      :transactions => "./fixture/transactions.csv"
+      })
     @item = Item.new({
       :id => 1,
       :name => "Pencil",
@@ -21,7 +29,7 @@ class ItemTest < Minitest::Test
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
       :merchant_id => 100
-      }, repository)
+      }, sales_engine.items)
     @item_2 = Item.new({
       :id => 2,
       :name => "Pen",
@@ -30,7 +38,7 @@ class ItemTest < Minitest::Test
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
       :merchant_id => 101
-    }, repository)
+    }, sales_engine.items)
   end
 
   def test_it_can_create_an_item
@@ -74,15 +82,10 @@ class ItemTest < Minitest::Test
   end
 
   def test_that_an_item_knows_who_its_parent_is
-    assert_equal repository, item.parent
     assert_instance_of ItemRepository, item.parent
   end
 
   def test_an_item_can_point_to_its_merchant
-    sales_engine = SalesEngine.from_csv({ 
-    :items => "./fixture/items.csv", 
-    :merchants => "./fixture/merchants.csv" 
-    })
     item = sales_engine.items.find_by_id(1)
     assert_instance_of Merchant, item.merchant
     assert_equal "ShopBoxes", item.merchant.name

@@ -231,8 +231,26 @@ class SalesAnalyst
     max = items_sold.values.max
     top_items_sold = Hash[items_sold.select {|key, value| value == max}]
     top_items_sold.map do |key, value|
-      sales_engine.items.find_by_id(top_items_sold[key])
+      sales_engine.items.find_by_id(key)
     end
+  end
+
+    def best_item_for_merchant(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    items_sold = Hash.new(0)
+    merchant.items.each do |item|
+      items_sold[item.id] = 0
+    end
+    merchant.invoices.each do |invoice|
+      if invoice.is_paid_in_full?
+        invoice.invoice_items.each do |invoice_item|
+          items_sold[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+        end
+      end
+    end
+    max = items_sold.values.max
+    item_id = items_sold.key(max)
+    sales_engine.items.find_by_id(item_id)
   end
 
 end

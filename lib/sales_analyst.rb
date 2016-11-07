@@ -166,7 +166,7 @@ class SalesAnalyst
       invoice.created_at == date
     end
     array.reduce(0) do |grand_total, invoice|
-      grand_total += invoice.total
+      grand_total += invoice.total if invoice.total
       grand_total
     end
   end

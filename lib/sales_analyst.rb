@@ -206,5 +206,12 @@ def merchants_with_pending_invoices
   array.uniq
 end
 
+def merchants_with_only_one_item_registered_in_month(month)
+  sales_engine.merchants.all.map do |merchant|
+    # binding.pry
+    merchant.created_at.month == Time.parse(month).month
+  end
+end
+
 
 end

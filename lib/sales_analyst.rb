@@ -60,7 +60,7 @@ class SalesAnalyst
     sum_of_prices = items.reduce(0) do |sum, item|
       sum += item.unit_price
     end
-    average(sum_of_prices, items.count)
+    (sum_of_prices/items.count).round(2)
   end
 
   def average_average_price_per_merchant

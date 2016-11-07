@@ -145,4 +145,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_top_merchants
     assert_equal 6, sales_analyst.top_revenue_earners.length
   end
+
+  def test_it_can_find_merchants_with_pending_invoices
+    assert_equal 3, sales_analyst.merchants_with_pending_invoices.length
+  end
 end

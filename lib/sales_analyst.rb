@@ -196,4 +196,15 @@ class SalesAnalyst
     merchants_ranked_by_revenue[0..number-1]
   end
 
+def merchants_with_pending_invoices
+  array = []
+  sales_engine.merchants.all.each do |merchant|
+    merchant.invoices.each do |invoice|
+      array << merchant if invoice.is_paid_in_full? == false
+    end
+  end
+  array.uniq
+end
+
+
 end

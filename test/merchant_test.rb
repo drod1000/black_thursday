@@ -18,6 +18,7 @@ class MerchantTest < Minitest::Test
       :customers => "./fixture/customers.csv",
       :transactions => "./fixture/transactions.csv"
       })
+
     @merchant = Merchant.new({
     :id => 5,
     :name => "Turing School",

@@ -10,14 +10,14 @@ class Transaction
                 :updated_at,
                 :parent
 
-  def initialize(transaction_hash, parent=nil)
-    @id = transaction_hash[:id].to_i
-    @invoice_id = transaction_hash[:invoice_id].to_i
-    @credit_card_number = transaction_hash[:credit_card_number].to_i
-    @credit_card_expiration_date = transaction_hash[:credit_card_expiration_date]
-    @result = transaction_hash[:result]
-    @created_at = Time.parse(transaction_hash[:created_at])
-    @updated_at = Time.parse(transaction_hash[:updated_at])
+  def initialize(hash, parent=nil)
+    @id = hash[:id].to_i
+    @invoice_id = hash[:invoice_id].to_i
+    @credit_card_number = hash[:credit_card_number].to_i
+    @credit_card_expiration_date = hash[:credit_card_expiration_date]
+    @result = hash[:result]
+    @created_at = Time.parse(hash[:created_at])
+    @updated_at = Time.parse(hash[:updated_at])
     @parent = parent
   end
 

@@ -51,7 +51,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_array_with_the_number_of_invoices_for_each_merchant
-    assert_equal [1,2,2,2,3,5], sales_analyst.collect_invoices_per_merchant.sort
+    assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices_per_merchant.sort
   end
 
   def test_it_can_return_array_of_items_given_merchant_id
@@ -131,7 +131,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_revenue_by_date
-    assert_equal 45, sales_analyst.total_revenue_by_date(Time.parse("2011-11-11"))
+    assert_equal 35, sales_analyst.total_revenue_by_date(Time.parse("2011-11-11"))
   end
 
   def test_it_can_find_merchants_with_one_item
@@ -143,6 +143,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_top_merchants
-    assert_equal 6, sales_analyst.top_revenue_earners
+    assert_equal 6, sales_analyst.top_revenue_earners.length
   end
 end

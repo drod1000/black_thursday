@@ -42,8 +42,8 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_transactions_that_match_result
-    assert_equal 8, repository.find_all_by_result("success").length
-    assert_equal 2, repository.find_all_by_result("failure").length
+    assert_equal 7, repository.find_all_by_result("success").length
+    assert_equal 3, repository.find_all_by_result("failure").length
   end
 
   def test_that_a_transaction_repo_knows_who_its_parent_is

@@ -151,6 +151,6 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_one_item_within_a__certain_month
-    assert_equal 4, sales_analyst.merchants_with_only_one_item_registered_in_month("January")
+    assert_equal 1, sales_analyst.merchants_with_only_one_item_registered_in_month("May").count
   end
 end

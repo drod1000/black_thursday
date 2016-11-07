@@ -38,7 +38,7 @@ class InvoiceItemRepositoryTest < Minitest::Test
 
   def test_it_can_return_all_invoices_that_match_item_id
     assert_equal 6, repository.find_all_by_item_id(1).length
-    assert_equal 2, repository.find_all_by_item_id(2).length
+    assert_equal 3, repository.find_all_by_item_id(2).length
     assert_equal [], repository.find_all_by_item_id(16)
   end
 

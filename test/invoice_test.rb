@@ -86,7 +86,6 @@ class InvoiceTest < Minitest::Test
   end
 
   def test_an_invoice_can_point_to_its_transactions
-    skip
     invoice = sales_engine.invoices.find_by_id(1)
     assert_equal 3, invoice.transactions.length
   end

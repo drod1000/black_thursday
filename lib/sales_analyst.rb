@@ -23,11 +23,11 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant
-    (total_items.to_f / total_merchants.to_f).round(2)
+    average(total_items, total_merchants)
   end
 
   def average_invoices_per_merchant
-    (total_invoices.to_f / total_merchants.to_f).round(2)
+    average(total_invoices, total_merchants)
   end
 
   def collect_items_per_merchant
@@ -37,7 +37,7 @@ class SalesAnalyst
   end
 
   def average_items_per_merchant_standard_deviation
-    standard_deviation(collect_items_per_merchant).round(2)
+    standard_deviation(collect_items_per_merchant)
   end
 
   def collect_invoices_per_merchant
@@ -47,7 +47,7 @@ class SalesAnalyst
   end
 
   def average_invoices_per_merchant_standard_deviation
-    standard_deviation(collect_invoices_per_merchant).round(2)
+    standard_deviation(collect_invoices_per_merchant)
   end
 
   def items_given_merchant_id(merchant_id)
@@ -60,7 +60,7 @@ class SalesAnalyst
     sum_of_prices = items.reduce(0) do |sum, item|
       sum += item.unit_price
     end
-    (sum_of_prices / items.count).round(2)
+    average(sum_of_prices, items.count)
   end
 
   def average_average_price_per_merchant
@@ -73,7 +73,7 @@ class SalesAnalyst
   end
 
   def get_all_prices
-    prices = sales_engine.items.all.map do |item|
+    sales_engine.items.all.map do |item|
       item.unit_price
     end
   end

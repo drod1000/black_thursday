@@ -166,7 +166,7 @@ class SalesAnalyst
       invoice.created_at == date
     end
     array.reduce(0) do |grand_total, invoice|
-      grand_total += invoice.total
+      grand_total += invoice.total if invoice.total
       grand_total
     end
   end
@@ -185,15 +185,15 @@ class SalesAnalyst
     end
   end
 
-  def top_revenue_earners(number=20)
-    unordered_revenue = sales_engine.merchants.all.each_with_object({}) do |merchant, hash|
-      hash[merchant] = self.revenue_by_merchant(merchant.id)
+  def merchants_ranked_by_revenue
+    revenue_earners = sales_engine.merchants.all.sort_by do |merchant|
+      revenue_by_merchant(merchant.id)
     end
-    ordered_revenue = unordered_revenue.sort_by { |key, value| value}
-    final_revenue = ordered_revenue.reverse.map {|row| row[0]}
-    final_revenue[0..number-1]
+    revenue_earners.reverse.uniq
   end
 
-
+  def top_revenue_earners(number = 20)
+    merchants_ranked_by_revenue[0..number-1]
+  end
 
 end

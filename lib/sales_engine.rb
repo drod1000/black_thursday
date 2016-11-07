@@ -5,9 +5,6 @@ require_relative 'invoice_item_repository'
 require_relative 'customer_repository'
 require_relative 'transaction_repository'
 
-
-require 'pry'
-
 class SalesEngine
   attr_reader   :paths,
                 :items,
@@ -38,12 +35,12 @@ class SalesEngine
     customers.find_by_id(customer_id)
   end
 
-  def find_transactions(invoice_id)
-    transactions.find_all_by_invoice_id(invoice_id)
-  end
-
   def find_invoice(invoice_id)
     invoices.find_by_id(invoice_id)
+  end
+
+  def find_transactions_by_invoice_id(invoice_id)
+    transactions.find_all_by_invoice_id(invoice_id)
   end
 
   def find_invoice_items_by_invoice_id(invoice_id)

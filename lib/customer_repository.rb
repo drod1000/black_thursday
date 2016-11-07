@@ -17,7 +17,9 @@ class CustomerRepository
   end
 
   def find_by_id(id_number)
-    all.find {|customer| customer.id == id_number}
+    all.find do |customer|
+      customer.id == id_number
+    end
   end
 
   def find_all_by_first_name(first_name)

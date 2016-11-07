@@ -11,7 +11,7 @@ class Item
                 :merchant_id,
                 :parent
 
-  def initialize(item_hash, parent=nil)
+  def initialize(item_hash, parent = nil)
     @id = item_hash[:id].to_i
     @name = item_hash[:name]
     @description = item_hash[:description]

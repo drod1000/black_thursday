@@ -1,6 +1,5 @@
 require_relative 'invoice'
 require 'csv'
-require 'bigdecimal'
 
 class InvoiceRepository
   attr_reader   :contents,
@@ -10,9 +9,7 @@ class InvoiceRepository
   def initialize(path, parent = nil)
     @contents = CSV.open path, headers: true, header_converters: :symbol
     @parent = parent
-    @invoices = contents.map do |line|
-      Invoice.new(line, self)
-    end
+    @invoices = contents.map {|line| Invoice.new(line, self)}
   end
 
   def all
@@ -20,25 +17,25 @@ class InvoiceRepository
   end
 
   def find_by_id(id_number)
-    invoices.find do |invoice|
+    all.find do |invoice|
       invoice.id == id_number
     end
   end
 
   def find_all_by_customer_id(customer_id)
-    invoices.find_all do |invoice|
+    all.find_all do |invoice|
       invoice.customer_id == customer_id
     end
   end
 
   def find_all_by_merchant_id(merchant_id)
-    invoices.find_all do |invoice|
+    all.find_all do |invoice|
       invoice.merchant_id == merchant_id
     end
   end
 
   def find_all_by_status(status)
-    invoices.find_all do |invoice|
+    all.find_all do |invoice|
       invoice.status == status
     end
   end
@@ -51,8 +48,8 @@ class InvoiceRepository
     parent.find_customer(customer_id)
   end
 
-  def find_transactions(invoice_id)
-    parent.find_transactions(invoice_id)
+  def find_transactions_by_invoice_id(invoice_id)
+    parent.find_transactions_by_invoice_id(invoice_id)
   end
 
   def find_items_by_invoice_id(invoice_id)

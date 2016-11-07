@@ -31,7 +31,9 @@ class TransactionRepository
   end
 
   def find_all_by_result(result)
-    all.find_all {|transaction| transaction.result == result}
+    all.find_all do |transaction|
+      transaction.result == result
+    end
   end
 
   def find_invoice(invoice_id)

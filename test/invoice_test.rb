@@ -3,7 +3,6 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
-require './lib/invoice_repository'
 require './lib/sales_engine'
 
 class InvoiceTest < Minitest::Test
@@ -110,6 +109,5 @@ class InvoiceTest < Minitest::Test
     invoice = sales_engine.invoices.find_by_id(2)
     assert_equal 15, invoice.total
   end
-
 
 end

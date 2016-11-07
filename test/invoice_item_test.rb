@@ -3,7 +3,6 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice_item'
-require './lib/invoice_item_repository'
 require './lib/sales_engine'
 
 class InvoiceItemTest < Minitest::Test
@@ -20,7 +19,7 @@ class InvoiceItemTest < Minitest::Test
     :customers => "./fixture/customers.csv",
     :transactions => "./fixture/transactions.csv"
     })
-    
+
     @invoice_item = InvoiceItem.new({
       :id => "1",
       :item_id => "1",
@@ -31,7 +30,7 @@ class InvoiceItemTest < Minitest::Test
       :updated_at => "2015-10-10 11:11:37 UTC"
     }, sales_engine.invoice_items)
 
-    
+
     @invoice_item_2 = InvoiceItem.new({
       :id => "2",
       :item_id => "2",

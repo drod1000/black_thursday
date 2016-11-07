@@ -37,7 +37,6 @@ class StandardDeviationTest < Minitest::Test
     assert_equal [], above_standard_deviation(set_1, 2)
     assert_equal [45,48], above_standard_deviation(set_2, 1)
     assert_equal [], above_standard_deviation(set_2, 2)
-
   end
 
   def test_it_can_get_below_standard_deviation
@@ -46,5 +45,5 @@ class StandardDeviationTest < Minitest::Test
     assert_equal [5], below_standard_deviation(set_2, 1)
     assert_equal [], below_standard_deviation(set_2, 2)
   end
-  
+
 end

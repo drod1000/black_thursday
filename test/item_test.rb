@@ -3,7 +3,6 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/item'
-require './lib/item_repository'
 require './lib/sales_engine'
 
 class ItemTest < Minitest::Test
@@ -21,6 +20,7 @@ class ItemTest < Minitest::Test
       :customers => "./fixture/customers.csv",
       :transactions => "./fixture/transactions.csv"
       })
+
     @item = Item.new({
       :id => 1,
       :name => "Pencil",
@@ -30,6 +30,7 @@ class ItemTest < Minitest::Test
       :updated_at => "2015-10-10 11:11:37 UTC",
       :merchant_id => 100
       }, sales_engine.items)
+
     @item_2 = Item.new({
       :id => 2,
       :name => "Pen",

@@ -70,7 +70,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 24.58, sales_analyst.average_average_price_per_merchant
   end
 
-  def test_it_can_retrieve_all_item_proces
+  def test_it_can_retrieve_all_item_prices
     assert_equal [5,10,10,10,15,20,40,60], sales_analyst.get_all_prices.sort
   end
 
@@ -157,4 +157,5 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_the_most_sold_item
     assert_equal 2, sales_analyst.most_sold_item_for_merchant(101)[0].id
   end
+  
 end

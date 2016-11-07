@@ -3,16 +3,23 @@ SimpleCov.start
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/transaction'
-#require './lib/transaction_repository'
 require './lib/sales_engine'
 
 class TransactionTest < Minitest::Test
   attr_reader   :transaction,
-                :transaction_2
-                #:repository
+                :transaction_2,
+                :sales_engine
 
   def setup
-    #@repository = TransactionRepository.new('./fixture/transactions.csv')
+      @sales_engine = SalesEngine.from_csv({
+      :items => "./fixture/items.csv",
+      :merchants => "./fixture/merchants.csv",
+      :invoices => "./fixture/invoices.csv",
+      :invoice_items => "./fixture/invoice_items.csv",
+      :customers => "./fixture/customers.csv",
+      :transactions => "./fixture/transactions.csv"
+      })
+
     @transaction = Transaction.new({
       :id => 3,
       :invoice_id => 4,
@@ -21,7 +28,7 @@ class TransactionTest < Minitest::Test
       :result => "success",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+    }, sales_engine.transactions)
 
     @transaction_2 = Transaction.new({
       :id => 6,
@@ -31,7 +38,7 @@ class TransactionTest < Minitest::Test
       :result => "failure",
       :created_at => "2015-01-01 11:11:37 UTC",
       :updated_at => "2015-10-10 11:11:37 UTC",
-    })
+    }, sales_engine.transactions)
   end
 
   def test_it_can_create_a_transaction
@@ -71,17 +78,13 @@ class TransactionTest < Minitest::Test
   end
 
   def test_that_a_transaction_knows_who_its_parent_is
-    skip
-    assert_equal repository, transaction.parent
     assert_instance_of TransactionRepository, transaction.parent
   end
 
   def test_that_a_transaction_can_point_to_its_invoice
-    skip
-    #Need SE in setup
     transaction = sales_engine.transactions.find_by_id(1)
-    assert_instance_of Invoice, transaction.invoice_id
-    assert_equal "Need something here", transaction.invoice_id
+    assert_instance_of Invoice, transaction.invoice
+    assert_equal 1, transaction.invoice.id
   end
 
 end

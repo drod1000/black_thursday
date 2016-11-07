@@ -150,7 +150,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 3, sales_analyst.merchants_with_pending_invoices.length
   end
 
-  def test_it_can_find_merchants_with_one_item_within_a__certain_month
+  def test_it_can_find_merchants_with_one_item_within_a_certain_month
     assert_equal 1, sales_analyst.merchants_with_only_one_item_registered_in_month("May").count
+  end
+
+  def test_it_can_find_the_most_sold_item
+    assert_equal 2, sales_analyst.most_sold_item_for_merchant(101)[0].id
   end
 end

@@ -1,3 +1,5 @@
+require 'time'
+
 class Merchant
 
   attr_reader   :id,
@@ -10,8 +12,8 @@ class Merchant
     @id = hash[:id].to_i
     @name = hash[:name]
     @parent = parent
-    @created_at = hash[:created_at]
-    @updated_at = hash[:updated_at]
+    @created_at = Time.parse(hash[:created_at])
+    @updated_at = Time.parse(hash[:updated_at])
   end
 
   def items

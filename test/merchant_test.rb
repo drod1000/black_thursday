@@ -20,7 +20,9 @@ class MerchantTest < Minitest::Test
       })
     @merchant = Merchant.new({
     :id => 5,
-    :name => "Turing School"
+    :name => "Turing School",
+    :created_at => "2010-11-11",
+    :updated_at => "2011-11-11"
     }, sales_engine.merchants)
   end
 

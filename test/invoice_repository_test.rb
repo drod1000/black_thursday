@@ -10,8 +10,13 @@ class InvoiceRepositoryTest < Minitest::Test
 
   def setup
     @sales_engine = SalesEngine.from_csv({
-      :invoices => "./fixture/invoices.csv"
-      })
+    :items => "./fixture/items.csv",
+    :merchants => "./fixture/merchants.csv",
+    :invoices => "./fixture/invoices.csv",
+    :invoice_items => "./fixture/invoice_items.csv",
+    :customers => "./fixture/customers.csv",
+    :transactions => "./fixture/transactions.csv"
+    })
     @repository = sales_engine.invoices
   end
 

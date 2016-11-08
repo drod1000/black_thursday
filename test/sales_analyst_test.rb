@@ -54,6 +54,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices_per_merchant.sort
   end
 
+  def test_it_can_return_standard_deviations_for_items_and_invoices
+    assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.84, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
   def test_it_can_return_array_of_items_given_merchant_id
     assert_instance_of Array, sales_analyst.items_given_merchant_id(101)
     assert_instance_of Array, sales_analyst.items_given_merchant_id(102)

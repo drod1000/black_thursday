@@ -192,13 +192,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    array = []
-    sales_engine.merchants.all.each do |merchant|
-      merchant.invoices.each do |invoice|
-      array << merchant if invoice.is_paid_in_full? == false
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.any? do |invoice|
+        merchant unless invoice.is_paid_in_full?
       end
     end
-    array.uniq
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
@@ -210,12 +208,18 @@ class SalesAnalyst
     end
   end
 
+  def get_merchant_items(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant_items = Hash.new(0)
+    merchant.items.each do |item|
+      merchant_items[item.id] = 0
+    end
+    merchant_items
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = Hash.new(0)
-    merchant.items.each do |item|
-      items_sold[item.id] = 0
-    end
+    items_sold = get_merchant_items(merchant.id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|
@@ -232,10 +236,7 @@ class SalesAnalyst
 
     def best_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = Hash.new(0)
-    merchant.items.each do |item|
-      items_sold[item.id] = 0
-    end
+    items_sold = get_merchant_items(merchant.id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|

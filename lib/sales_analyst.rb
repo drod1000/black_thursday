@@ -32,7 +32,7 @@ class SalesAnalyst
 
   def collect_items_per_merchant
     sales_engine.merchants.all.map do |merchant|
-      merchant.items.length
+      merchant.items.count
     end
   end
 
@@ -42,7 +42,7 @@ class SalesAnalyst
 
   def collect_invoices_per_merchant
     sales_engine.merchants.all.map do |merchant|
-      merchant.invoices.length
+      merchant.invoices.count
     end
   end
 
@@ -91,7 +91,7 @@ class SalesAnalyst
 
   def number_of_items_for_every_merchant
     sales_engine.merchants.all.map do |merchant|
-      merchant.items.length
+      merchant.items.count
     end
   end
 
@@ -147,12 +147,8 @@ class SalesAnalyst
     end
   end
 
-  def average_number_of_invoices_per_day
-    (invoices_per_day.reduce(:+) / 7.to_f).round(2)
-  end
-
   def top_days_by_invoice_count
-    cut = average_number_of_invoices_per_day + standard_deviation(invoices_per_day)
+    cut = mean(invoices_per_day) + standard_deviation(invoices_per_day)
     invoices_per_day.reduce([]) do |top_days, day|
       if day > cut
         top_days << days_of_week[invoices_per_day.index(day)]
@@ -173,7 +169,7 @@ class SalesAnalyst
 
   def merchants_with_only_one_item
     sales_engine.merchants.all.find_all do |merchant|
-      merchant.items.length == 1
+      merchant.items.count == 1
     end
   end
 
@@ -186,10 +182,9 @@ class SalesAnalyst
   end
 
   def merchants_ranked_by_revenue
-    revenue_earners = sales_engine.merchants.all.sort_by do |merchant|
+    sales_engine.merchants.all.sort_by do |merchant|
       revenue_by_merchant(merchant.id)
-    end
-    revenue_earners.reverse.uniq
+    end.reverse.uniq
   end
 
   def top_revenue_earners(number = 20)
@@ -244,7 +239,7 @@ class SalesAnalyst
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|
-          items_sold[invoice_item.item_id] += (invoice_item.quantity * invoice_item.unit_price)
+          items_sold[invoice_item.item_id] += invoice_item.total
         end
       end
     end

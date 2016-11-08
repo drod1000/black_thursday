@@ -52,7 +52,7 @@ class Invoice
   def total
     if is_paid_in_full?
       invoice_items.reduce(0) do |sum, invoice_item|
-        sum += invoice_item.unit_price * invoice_item.quantity
+        sum += invoice_item.total
         sum
       end
     end

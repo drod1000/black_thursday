@@ -1,4 +1,4 @@
-module StandardDeviation
+module SAAssistant
   def sum(array)
     array.reduce(0) do |sum, number|
       sum += number
@@ -30,6 +30,17 @@ module StandardDeviation
     array.find_all do |number|
       number > cutoff
     end
+  end
+
+  def days_of_week
+    { 0 => "Sunday",
+      1 => "Monday",
+      2 => "Tuesday",
+      3 => "Wednesday",
+      4 => "Thursday",
+      5 => "Friday",
+      6 => "Saturday",
+    }
   end
 
 end

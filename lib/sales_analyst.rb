@@ -1,9 +1,9 @@
 require_relative 'sales_engine'
-require_relative 'standard_deviation'
+require_relative 'sa_assistant'
 require 'pry'
 
 class SalesAnalyst
-  include StandardDeviation
+  include SAAssistant
   attr_reader   :sales_engine
 
   def initialize(sales_engine)
@@ -83,10 +83,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    items = golden_prices.map do |price|
+    golden_prices.map do |price|
       sales_engine.items.find_all_by_price(price)
-    end
-    items.flatten.uniq
+    end.flatten.uniq
   end
 
   def number_of_items_for_every_merchant
@@ -121,23 +120,12 @@ class SalesAnalyst
 
   def find_invoice_status
     sales_engine.invoices.all.each_with_object(Hash.new(0)) do |invoice,counts|
-    counts[invoice.status] += 1
+      counts[invoice.status] += 1
     end
   end
 
   def invoice_status(status)
     ((find_invoice_status[status].to_f/ total_invoices.to_f) * 100).round(2)
-  end
-
-  def days_of_week
-    { 0 => "Sunday",
-      1 => "Monday",
-      2 => "Tuesday",
-      3 => "Wednesday",
-      4 => "Thursday",
-      5 => "Friday",
-      6 => "Saturday",
-    }
   end
 
   def invoices_per_day
@@ -149,9 +137,9 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     cut = mean(invoices_per_day) + standard_deviation(invoices_per_day)
-    invoices_per_day.reduce([]) do |top_days, day|
-      if day > cut
-        top_days << days_of_week[invoices_per_day.index(day)]
+    invoices_per_day.reduce([]) do |top_days, count|
+      if count > cut
+        top_days << days_of_week[invoices_per_day.index(count)]
       end
       top_days
     end
@@ -234,7 +222,7 @@ class SalesAnalyst
     end
   end
 
-    def best_item_for_merchant(merchant_id)
+  def best_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
     items_sold = get_merchant_items(merchant.id)
     merchant.invoices.each do |invoice|

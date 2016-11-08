@@ -72,5 +72,5 @@ class SalesEngine
       invoice_item.item
     end.uniq
   end
-  
+
 end

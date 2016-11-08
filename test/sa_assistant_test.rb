@@ -1,9 +1,9 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require './lib/standard_deviation'
+require './lib/sa_assistant'
 
-class StandardDeviationTest < Minitest::Test
-  include StandardDeviation
+class SAAssistantTest < Minitest::Test
+  include SAAssistant
   attr_reader   :set_1,
                 :set_2
 
@@ -37,6 +37,11 @@ class StandardDeviationTest < Minitest::Test
     assert_equal [], above_standard_deviation(set_1, 2)
     assert_equal [45,48], above_standard_deviation(set_2, 1)
     assert_equal [], above_standard_deviation(set_2, 2)
+  end
+
+  def test_it_can_return_day_of_the_week
+    assert_equal "Sunday", days_of_week[0]
+    assert_equal "Wednesday", days_of_week[3]
   end
 
 end

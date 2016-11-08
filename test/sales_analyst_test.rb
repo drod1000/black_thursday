@@ -154,4 +154,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 2, sales_analyst.most_sold_item_for_merchant(101)[0].id
   end
 
+  def test_it_can_find_the_best_item_for_merchant
+    assert_equal 2, sales_analyst.best_item_for_merchant(101).id
+  end
+
 end

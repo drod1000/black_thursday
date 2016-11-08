@@ -61,17 +61,16 @@ class SalesEngine
 
   def find_customers_by_merchant_id(merchant_id)
     invoices = find_invoices_by_merchant_id(merchant_id)
-    customers = invoices.map do |invoice|
+    invoices.map do |invoice|
       invoice.customer
-    end
-    customers.uniq
+    end.uniq
   end
 
   def find_items_by_invoice_id(invoice_id)
     invoice_items = find_invoice_items_by_invoice_id(invoice_id)
-    items = invoice_items.map do |invoice_item|
+    invoice_items.map do |invoice_item|
       invoice_item.item
-    end
-    items.uniq
+    end.uniq
   end
+  
 end

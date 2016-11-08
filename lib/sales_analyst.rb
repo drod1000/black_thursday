@@ -1,9 +1,9 @@
 require_relative 'sales_engine'
-require_relative 'standard_deviation'
+require_relative 'sa_assistant'
 require 'pry'
 
 class SalesAnalyst
-  include StandardDeviation
+  include SAAssistant
   attr_reader   :sales_engine
 
   def initialize(sales_engine)
@@ -83,10 +83,9 @@ class SalesAnalyst
   end
 
   def golden_items
-    items = golden_prices.map do |price|
+    golden_prices.map do |price|
       sales_engine.items.find_all_by_price(price)
-    end
-    items.flatten.uniq
+    end.flatten.uniq
   end
 
   def number_of_items_for_every_merchant
@@ -121,23 +120,12 @@ class SalesAnalyst
 
   def find_invoice_status
     sales_engine.invoices.all.each_with_object(Hash.new(0)) do |invoice,counts|
-    counts[invoice.status] += 1
+      counts[invoice.status] += 1
     end
   end
 
   def invoice_status(status)
     ((find_invoice_status[status].to_f/ total_invoices.to_f) * 100).round(2)
-  end
-
-  def days_of_week
-    { 0 => "Sunday",
-      1 => "Monday",
-      2 => "Tuesday",
-      3 => "Wednesday",
-      4 => "Thursday",
-      5 => "Friday",
-      6 => "Saturday",
-    }
   end
 
   def invoices_per_day
@@ -149,9 +137,9 @@ class SalesAnalyst
 
   def top_days_by_invoice_count
     cut = mean(invoices_per_day) + standard_deviation(invoices_per_day)
-    invoices_per_day.reduce([]) do |top_days, day|
-      if day > cut
-        top_days << days_of_week[invoices_per_day.index(day)]
+    invoices_per_day.reduce([]) do |top_days, count|
+      if count > cut
+        top_days << days_of_week[invoices_per_day.index(count)]
       end
       top_days
     end
@@ -192,13 +180,11 @@ class SalesAnalyst
   end
 
   def merchants_with_pending_invoices
-    array = []
-    sales_engine.merchants.all.each do |merchant|
-      merchant.invoices.each do |invoice|
-      array << merchant if invoice.is_paid_in_full? == false
+    sales_engine.merchants.all.find_all do |merchant|
+      merchant.invoices.any? do |invoice|
+        merchant unless invoice.is_paid_in_full?
       end
     end
-    array.uniq
   end
 
   def merchants_with_only_one_item_registered_in_month(month)
@@ -210,12 +196,18 @@ class SalesAnalyst
     end
   end
 
+  def get_merchant_items(merchant_id)
+    merchant = sales_engine.merchants.find_by_id(merchant_id)
+    merchant_items = Hash.new(0)
+    merchant.items.each do |item|
+      merchant_items[item.id] = 0
+    end
+    merchant_items
+  end
+
   def most_sold_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = Hash.new(0)
-    merchant.items.each do |item|
-      items_sold[item.id] = 0
-    end
+    items_sold = get_merchant_items(merchant.id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|
@@ -230,12 +222,9 @@ class SalesAnalyst
     end
   end
 
-    def best_item_for_merchant(merchant_id)
+  def best_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = Hash.new(0)
-    merchant.items.each do |item|
-      items_sold[item.id] = 0
-    end
+    items_sold = get_merchant_items(merchant.id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|

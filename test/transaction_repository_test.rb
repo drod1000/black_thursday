@@ -37,20 +37,20 @@ class TransactionRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_transactions_that_match_invoice_id
-    assert_equal 3, repository.find_all_by_invoice_id(1).length
-    assert_equal 2, repository.find_all_by_invoice_id(2).length
+    assert_equal 3, repository.find_all_by_invoice_id(1).count
+    assert_equal 2, repository.find_all_by_invoice_id(2).count
     assert_equal [], repository.find_all_by_invoice_id(25)
   end
 
   def test_it_can_return_all_transactions_that_match_credit_card_number
-    assert 3, repository.find_all_by_credit_card_number(1234567891234567).length
-    assert 2, repository.find_all_by_credit_card_number(9876543210987654).length
+    assert 3, repository.find_all_by_credit_card_number(1234567891234567).count
+    assert 2, repository.find_all_by_credit_card_number(9876543210987654).count
     assert_equal [], repository.find_all_by_credit_card_number(1111111111111111)
   end
 
   def test_it_can_return_all_transactions_that_match_result
-    assert_equal 12, repository.find_all_by_result("success").length
-    assert_equal 8, repository.find_all_by_result("failure").length
+    assert_equal 12, repository.find_all_by_result("success").count
+    assert_equal 8, repository.find_all_by_result("failure").count
   end
 
   def test_that_a_transaction_repo_knows_who_its_parent_is

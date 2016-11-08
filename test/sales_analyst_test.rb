@@ -57,8 +57,8 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_return_array_of_items_given_merchant_id
     assert_instance_of Array, sales_analyst.items_given_merchant_id(101)
     assert_instance_of Array, sales_analyst.items_given_merchant_id(102)
-    assert_equal 2, sales_analyst.items_given_merchant_id(101).length
-    assert_equal 2, sales_analyst.items_given_merchant_id(102).length
+    assert_equal 2, sales_analyst.items_given_merchant_id(101).count
+    assert_equal 2, sales_analyst.items_given_merchant_id(102).count
   end
 
   def test_it_can_determine_average_price_per_merchant
@@ -75,11 +75,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_golden_prices
-    assert_equal 1, sales_analyst.golden_prices.length
+    assert_equal 1, sales_analyst.golden_prices.count
   end
 
   def test_it_can_return_a_golden_item
-    assert_equal 1, sales_analyst.golden_items.length
+    assert_equal 1, sales_analyst.golden_items.count
   end
 
   def test_golden_items_returns_an_array
@@ -91,15 +91,15 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_calculate_merchants_with_high_item_count
-    assert_equal 2, sales_analyst.merchants_with_high_item_count.length
+    assert_equal 2, sales_analyst.merchants_with_high_item_count.count
   end
 
   def test_it_can_calculate_top_merchants_by_invoice_count
-    assert_equal 0, sales_analyst.top_merchants_by_invoice_count.length
+    assert_equal 0, sales_analyst.top_merchants_by_invoice_count.count
   end
 
   def test_it_can_calculate_bottom_merchants_by_invoice_count
-    assert_equal 0, sales_analyst.bottom_merchants_by_invoice_count.length
+    assert_equal 0, sales_analyst.bottom_merchants_by_invoice_count.count
   end
 
   def test_it_can_find_invoice_status
@@ -135,7 +135,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_with_one_item
-    assert_equal 4, sales_analyst.merchants_with_only_one_item.length
+    assert_equal 4, sales_analyst.merchants_with_only_one_item.count
   end
 
   def test_it_can_calculate_total_revenue_for_a_single_merchant
@@ -143,11 +143,11 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_top_merchants
-    assert_equal 6, sales_analyst.top_revenue_earners.length
+    assert_equal 6, sales_analyst.top_revenue_earners.count
   end
 
   def test_it_can_find_merchants_with_pending_invoices
-    assert_equal 3, sales_analyst.merchants_with_pending_invoices.length
+    assert_equal 3, sales_analyst.merchants_with_pending_invoices.count
   end
 
   def test_it_can_find_merchants_with_one_item_within_a_certain_month
@@ -157,5 +157,5 @@ class SalesAnalystTest < Minitest::Test
   def test_it_can_find_the_most_sold_item
     assert_equal 2, sales_analyst.most_sold_item_for_merchant(101)[0].id
   end
-  
+
 end

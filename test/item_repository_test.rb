@@ -5,7 +5,7 @@ require 'minitest/pride'
 require './lib/sales_engine'
 
 class ItemRepositoryTest < Minitest::Test
-  attr_reader   :repository, 
+  attr_reader   :repository,
                 :sales_engine
 
   def setup
@@ -56,34 +56,34 @@ class ItemRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_items_that_match_description
-    assert_equal 1, repository.find_all_with_description("You use it to carry your things").length
-    assert_equal 2, repository.find_all_with_description("You use it to write things").length
+    assert_equal 1, repository.find_all_with_description("You use it to carry your things").count
+    assert_equal 2, repository.find_all_with_description("You use it to write things").count
     assert_equal [], repository.find_all_with_description("You won't find it!!")
   end
 
   def test_description_match_is_case_insensitive
-    assert_equal 1, repository.find_all_with_description("YOU USE IT TO CARRY YOUR THINGS").length
-    assert_equal 2, repository.find_all_with_description("YOU USE IT TO WRITE THINGS").length
+    assert_equal 1, repository.find_all_with_description("YOU USE IT TO CARRY YOUR THINGS").count
+    assert_equal 2, repository.find_all_with_description("YOU USE IT TO WRITE THINGS").count
   end
 
   def test_it_can_return_all_items_that_match_price
     assert repository.find_all_by_price(10)
-    assert_equal 3, repository.find_all_by_price(10).length
+    assert_equal 3, repository.find_all_by_price(10).count
     assert repository.find_all_by_price(40)
-    assert_equal 1, repository.find_all_by_price(40).length
+    assert_equal 1, repository.find_all_by_price(40).count
     assert_equal [], repository.find_all_by_price(1000)
   end
 
   def test_it_can_return_items_within_price_range
-    assert_equal 4, repository.find_all_by_price_in_range(5..10).length
-    assert_equal 2, repository.find_all_by_price_in_range(20..40).length
+    assert_equal 4, repository.find_all_by_price_in_range(5..10).count
+    assert_equal 2, repository.find_all_by_price_in_range(20..40).count
     assert_equal [], repository.find_all_by_price_in_range(100..110)
   end
 
   def test_it_can_return_items_matching_a_merchant_id
-    assert_equal 2, repository.find_all_by_merchant_id(101).length
-    assert_equal 2, repository.find_all_by_merchant_id(102).length
-    assert_equal 1, repository.find_all_by_merchant_id(103).length
+    assert_equal 2, repository.find_all_by_merchant_id(101).count
+    assert_equal 2, repository.find_all_by_merchant_id(102).count
+    assert_equal 1, repository.find_all_by_merchant_id(103).count
     assert_equal [], repository.find_all_by_merchant_id(999)
   end
 

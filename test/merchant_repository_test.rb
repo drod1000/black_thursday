@@ -26,7 +26,7 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_has_the_correct_number_of_merchants
-    assert_equal 6, repository.all.length
+    assert_equal 6, repository.all.count
   end
 
   def test_it_can_find_by_merchant_id
@@ -62,16 +62,16 @@ class MerchantRepositoryTest < Minitest::Test
   end
 
   def test_it_can_find_merchants_by_partial_name
-    assert_equal 0, repository.find_all_by_name("Amazon").length
-    assert_equal 2, repository.find_all_by_name("Shop").length
-    assert_equal 1, repository.find_all_by_name("art").length
+    assert_equal 0, repository.find_all_by_name("Amazon").count
+    assert_equal 2, repository.find_all_by_name("Shop").count
+    assert_equal 1, repository.find_all_by_name("art").count
   end
 
   def test_it_can_find_merchants_by_case_insensitive_partial_name
-    assert_equal 0, repository.find_all_by_name("AMAZON").length
-    assert_equal 2, repository.find_all_by_name("shop").length
-    assert_equal 2, repository.find_all_by_name("SHOP").length
-    assert_equal 2, repository.find_all_by_name("sHOp").length
+    assert_equal 0, repository.find_all_by_name("AMAZON").count
+    assert_equal 2, repository.find_all_by_name("shop").count
+    assert_equal 2, repository.find_all_by_name("SHOP").count
+    assert_equal 2, repository.find_all_by_name("sHOp").count
   end
 
   def test_that_a_merchant_repo_knows_who_its_parent_is

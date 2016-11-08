@@ -45,17 +45,17 @@ class MerchantTest < Minitest::Test
 
   def test_a_merchant_can_point_to_its_items
     merchant = sales_engine.merchants.find_by_id(101)
-    assert_equal 2, merchant.items.length
+    assert_equal 2, merchant.items.count
   end
 
   def test_a_merchant_can_point_to_its_invoices
     merchant = sales_engine.merchants.find_by_id(101)
-    assert_equal 2, merchant.invoices.length
+    assert_equal 2, merchant.invoices.count
   end
 
   def test_a_merchant_can_point_to_its_customers
     merchant = sales_engine.merchants.find_by_id(101)
-    assert_equal 2, merchant.customers.length
+    assert_equal 2, merchant.customers.count
   end
 
 end

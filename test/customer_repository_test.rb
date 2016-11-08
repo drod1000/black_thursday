@@ -37,14 +37,14 @@ class CustomerRepositoryTest < Minitest::Test
   end
 
   def test_it_can_return_all_customers_that_match_first_name
-    assert_equal 2, repository.find_all_by_first_name("John").length
-    assert_equal 1, repository.find_all_by_first_name("Mary").length
+    assert_equal 2, repository.find_all_by_first_name("John").count
+    assert_equal 1, repository.find_all_by_first_name("Mary").count
     assert_equal [], repository.find_all_by_first_name("Delilah")
   end
 
   def test_it_can_return_all_customers_that_match_last_name
-    assert_equal 2, repository.find_all_by_last_name("Smith").length
-    assert_equal 1, repository.find_all_by_last_name("Johnson").length
+    assert_equal 2, repository.find_all_by_last_name("Smith").count
+    assert_equal 1, repository.find_all_by_last_name("Johnson").count
     assert_equal [], repository.find_all_by_last_name("James")
   end
 

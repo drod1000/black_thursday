@@ -86,7 +86,7 @@ class InvoiceTest < Minitest::Test
 
   def test_an_invoice_can_point_to_its_transactions
     invoice = sales_engine.invoices.find_by_id(1)
-    assert_equal 3, invoice.transactions.length
+    assert_equal 3, invoice.transactions.count
   end
 
   def test_an_invoice_can_point_to_its_customer
@@ -97,12 +97,12 @@ class InvoiceTest < Minitest::Test
 
   def test_an_invoice_can_point_to_its_items
     invoice = sales_engine.invoices.find_by_id(2)
-    assert_equal 2, invoice.items.length
+    assert_equal 2, invoice.items.count
   end
 
   def test_that_an_invoice_can_point_to_its_invoice_items
     invoice = sales_engine.invoices.find_by_id(2)
-    assert_equal 2, invoice.invoice_items.length
+    assert_equal 2, invoice.invoice_items.count
   end
 
   def test_that_an_invoice_can_return_its_total

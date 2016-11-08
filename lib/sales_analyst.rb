@@ -198,16 +198,14 @@ class SalesAnalyst
 
   def get_merchant_items(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    merchant_items = Hash.new(0)
-    merchant.items.each do |item|
-      merchant_items[item.id] = 0
+    merchant.items.each_with_object(Hash.new(0)) do |item, item_hash|
+      item_hash[item.id] = 0
     end
-    merchant_items
   end
 
   def most_sold_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = get_merchant_items(merchant.id)
+    items_sold = get_merchant_items(merchant_id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|
@@ -224,7 +222,7 @@ class SalesAnalyst
 
   def best_item_for_merchant(merchant_id)
     merchant = sales_engine.merchants.find_by_id(merchant_id)
-    items_sold = get_merchant_items(merchant.id)
+    items_sold = get_merchant_items(merchant_id)
     merchant.invoices.each do |invoice|
       if invoice.is_paid_in_full?
         invoice.invoice_items.each do |invoice_item|

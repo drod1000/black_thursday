@@ -54,6 +54,11 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices_per_merchant.sort
   end
 
+  def test_it_can_return_standard_deviations_for_items_and_invoices
+    assert_equal 0.52, sales_analyst.average_items_per_merchant_standard_deviation
+    assert_equal 0.84, sales_analyst.average_invoices_per_merchant_standard_deviation
+  end
+
   def test_it_can_return_array_of_items_given_merchant_id
     assert_instance_of Array, sales_analyst.items_given_merchant_id(101)
     assert_instance_of Array, sales_analyst.items_given_merchant_id(102)
@@ -113,17 +118,8 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 13.33, sales_analyst.invoice_status(:returned)
   end
 
-  def test_it_can_return_day_of_the_week
-    assert_equal "Sunday", sales_analyst.days_of_week[0]
-    assert_equal "Wednesday", sales_analyst.days_of_week[3]
-  end
-
   def test_it_can_return_number_of_days
     assert_equal [1,2,2,1,1,6,2], sales_analyst.invoices_per_day
-  end
-
-  def test_it_can_calculate_average_invoices_per_day
-    assert_equal 2.14, sales_analyst.average_number_of_invoices_per_day
   end
 
   def test_it_can_find_high_days_of_week

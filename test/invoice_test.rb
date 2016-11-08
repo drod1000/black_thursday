@@ -4,6 +4,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/invoice'
 require './lib/sales_engine'
+require 'pry'
 
 class InvoiceTest < Minitest::Test
   attr_reader   :sales_engine,
@@ -105,9 +106,18 @@ class InvoiceTest < Minitest::Test
     assert_equal 2, invoice.invoice_items.count
   end
 
+  def test_an_invoice_can_confirm_whether_its_paid_in_full
+    invoice = sales_engine.invoices.find_by_id(2)
+    assert invoice.is_paid_in_full?
+    invoice = sales_engine.invoices.find_by_id(14)
+    refute invoice.is_paid_in_full?
+  end
+
   def test_that_an_invoice_can_return_its_total
     invoice = sales_engine.invoices.find_by_id(2)
     assert_equal 15, invoice.total
+    invoice = sales_engine.invoices.find_by_id(14)
+    refute invoice.total
   end
 
 end

@@ -43,7 +43,7 @@ class SalesAnalystTest < Minitest::Test
   end
 
   def test_it_can_return_array_with_the_number_of_invoices_for_each_merchant
-    assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices_per_merchant.sort
+    assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices.sort
   end
 
   def test_it_can_return_standard_deviations_for_items_and_invoices
@@ -122,31 +122,13 @@ class SalesAnalystTest < Minitest::Test
     assert_equal 35, sales_analyst.total_revenue_by_date(Time.parse("2011-11-11"))
   end
 
-  def test_it_can_find_merchants_with_one_item
+  def test_it_can_use_merchant_analyst
     assert_equal 4, sales_analyst.merchants_with_only_one_item.count
-  end
-
-  def test_it_can_calculate_total_revenue_for_a_single_merchant
     assert_equal 210,sales_analyst.revenue_by_merchant(102)
-  end
-
-  def test_it_can_return_top_merchants
     assert_equal 6, sales_analyst.top_revenue_earners.count
-  end
-
-  def test_it_can_find_merchants_with_pending_invoices
     assert_equal 3, sales_analyst.merchants_with_pending_invoices.count
-  end
-
-  def test_it_can_find_merchants_with_one_item_within_a_certain_month
     assert_equal 1, sales_analyst.merchants_with_only_one_item_registered_in_month("May").count
-  end
-
-  def test_it_can_find_the_most_sold_item
     assert_equal 2, sales_analyst.most_sold_item_for_merchant(101)[0].id
-  end
-
-  def test_it_can_find_the_best_item_for_merchant
     assert_equal 2, sales_analyst.best_item_for_merchant(101).id
   end
 

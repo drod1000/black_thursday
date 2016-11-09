@@ -26,16 +26,8 @@ class SalesAnalystTest < Minitest::Test
     assert_instance_of SalesEngine, sales_analyst.sales_engine
   end
 
-  def test_it_can_return_total_number_of_items
-    assert_equal 8, sales_analyst.total_items
-  end
-
   def test_it_can_return_total_number_of_merchants
     assert_equal 6, sales_analyst.total_merchants
-  end
-
-  def test_it_can_return_total_number_of_invoices
-    assert_equal 15, sales_analyst.total_invoices
   end
 
   def test_it_can_return_average_items_per_merchant

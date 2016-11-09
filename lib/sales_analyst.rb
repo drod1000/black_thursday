@@ -23,24 +23,16 @@ class SalesAnalyst
     @transactions = sales_engine.transactions
   end
 
-  def total_items
-    items.all.count
-  end
-
   def total_merchants
     merchants.all.count
   end
 
-  def total_invoices
-    invoices.all.count
-  end
-
   def average_items_per_merchant
-    average(total_items, total_merchants)
+    average(items.all.count, total_merchants)
   end
 
   def average_invoices_per_merchant
-    average(total_invoices, total_merchants)
+    average(invoices.all.count, total_merchants)
   end
 
   def collect_items_per_merchant
@@ -137,7 +129,7 @@ class SalesAnalyst
   end
 
   def invoice_status(status)
-    ((find_invoice_status[status].to_f/ total_invoices.to_f) * 100).round(2)
+    ((find_invoice_status[status].to_f/ invoices.all.count.to_f) * 100).round(2)
   end
 
   def invoices_per_day

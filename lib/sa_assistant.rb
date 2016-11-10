@@ -32,6 +32,10 @@ module SAAssistant
     end
   end
 
+  def cutoff(array, deviations)
+    mean(array) + (deviations * standard_deviation(array))
+  end
+
   def days_of_week
     { 0 => "Sunday",
       1 => "Monday",

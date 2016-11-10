@@ -42,7 +42,7 @@ class SalesAnalystTest < Minitest::Test
     assert_equal [1,1,1,1,2,2], sales_analyst.collect_items_per_merchant.sort
   end
 
-  def test_it_can_return_array_with_the_number_of_invoices_for_each_merchant
+  def test_it_can_return_number_of_invoices_for_each_merchant
     assert_equal [2,2,2,2,3,4], sales_analyst.collect_invoices.sort
   end
 
@@ -83,8 +83,8 @@ class SalesAnalystTest < Minitest::Test
     assert Array, sales_analyst.golden_items.class
   end
 
-  def test_it_can_calculate_number_of_items_for_every_merchant
-    assert_equal [1,1,1,1,2,2], sales_analyst.number_of_items_for_every_merchant.sort
+  def test_it_can_return_number_of_items_for_every_merchant
+    assert_equal [1,1,1,1,2,2], sales_analyst.collect_items.sort
   end
 
   def test_it_can_calculate_merchants_with_high_item_count

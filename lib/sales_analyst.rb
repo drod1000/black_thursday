@@ -93,31 +93,27 @@ class SalesAnalyst
     end.flatten.uniq
   end
 
-  def number_of_items_for_every_merchant
+  def collect_items
     merchants.all.map do |merchant|
       merchant.items.count
     end
   end
 
   def merchants_with_high_item_count
-    item_count = number_of_items_for_every_merchant
-    cut = mean(item_count) + standard_deviation(item_count)
     merchants.all.find_all do |merchant|
-      merchant.items.count > cut
+      merchant.items.count > cutoff(collect_items, 1)
     end
   end
 
   def top_merchants_by_invoice_count
-    cut = mean(collect_invoices) + 2 * standard_deviation(collect_invoices)
     merchants.all.find_all do |merchant|
-      merchant.invoices.count > cut
+      merchant.invoices.count > cutoff(collect_invoices, 2)
     end
   end
 
   def bottom_merchants_by_invoice_count
-    cut = mean(collect_invoices) - 2 * standard_deviation(collect_invoices)
     merchants.all.find_all do |merchant|
-      merchant.invoices.count < cut
+      merchant.invoices.count < cutoff(collect_invoices, -2)
       end
   end
 
